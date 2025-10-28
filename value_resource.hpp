@@ -9,24 +9,26 @@
 #define INTERFACES_VALUE_RESOURCE_HPP_
 
 #include "cstdint"
+#include "reader.hpp"
 
 namespace nikolex {
 
-class ValueResource{
+class ValueResource : public Reader{
 
-	void (* onConversionCompleteCb)(uint32_t result, void * ctx);
+	void (* onReadingCompleteCb)(uint32_t result, void * ctx);
 	void* _ctx;
 
 public:
 
-	virtual void startConversion() = 0;
+	virtual void read() = 0;
 
-	void onConversionComplete(void (* callback)(uint32_t result, void * ctx), void * ctx = nullptr){
-		onConversionCompleteCb = callback;
-		_ctx = ctx;	}
+	void onReadingComplete(void (* callback)(uint32_t result, void * ctx), void * ctx = nullptr){
+		onReadingCompleteCb = callback;
+		_ctx = ctx;
+	}
 
-	void completeConversion(uint32_t result){
-		if(onConversionCompleteCb) onConversionCompleteCb(result, _ctx);
+	void completeReading(uint32_t result){
+		if(onReadingCompleteCb) onReadingCompleteCb(result, _ctx);
 	}
 };
 
