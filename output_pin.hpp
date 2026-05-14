@@ -14,6 +14,7 @@ class OutputPin {
 public:
 	virtual void setHigh() = 0;
 	virtual void setLow() = 0;
+	virtual void init() = 0;
 	virtual ~OutputPin(){};
 };
 
